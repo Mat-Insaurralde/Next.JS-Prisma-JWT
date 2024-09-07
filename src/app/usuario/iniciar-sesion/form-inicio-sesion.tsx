@@ -8,14 +8,14 @@ import { useState } from "react";
 import { useFormState } from "react-dom";
 
 
+ 
 
 
 
 
 
 
-
-export default function FormInicioSesion() {
+export default  function FormInicioSesion() {
 
     const router = useRouter();
 
@@ -29,20 +29,24 @@ export default function FormInicioSesion() {
     const handleSubmit = async (form: FormData) => {
 
 
-        const result = await loginUser(form);
+        const response = await loginUser(form);
 
+         
 
-        if(result.success){
+        if(response.success){
+
+            const userDTO = response.user;
 
             // Redirige al usuario a la página "/" después de 2 segundos
              const timer = setTimeout(() => {
              router.push('/');
+             query: {user : userDTO};
              }, 2000);
       
             };
     
 
-        setState(result);
+        setState(response);
 
 
     }
@@ -100,7 +104,7 @@ export default function FormInicioSesion() {
 
                 <button type="submit"
                     className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    Registrar
+                    Iniciar Sesion
                 </button>
             </form>
 
